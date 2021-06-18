@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Notification Test PWA</title>
+<link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png" />
+<link rel="manifest" href="site.webmanifest" />
+<link rel="mask-icon" href="favicon/safari-pinned-tab.svg" color="#5bbad5" />
+<link rel="shortcut icon" href="favicon/favicon.ico" />
+<meta name="msapplication-TileColor" content="#da532c" />
+<meta name="msapplication-TileImage" content="favicon/mstile-144x144.png" />
+<meta name="msapplication-config" content="browserconfig.xml" />
+<meta name="theme-color" content="#ffffff" />
+<script src="app.js" defer></script>
+</head>
+<body>
+<button class="add-button" style="display: block;">Add to home screen</button>
+Notification PWA Test
+<form name="notification" action="" method="get" class="form-example" onsubmit="event.preventDefault(); return false" style="display:flex; flex-direction: column; max-width: 100px" >
+    <label for="event">Remind me to: </label>
+    <input type="text" name="event" id="event" required>
+    <label for="minute">For every hour starting from: </label>
+    <input type="text" name="minute" id="minute" required>
+    <button type="submit">Create reminder</button>
+</form>
+<div id="attribution"><a href="https://commons.wikimedia.org/wiki/File:Alarm_Clock_Vector.svg">Icon</a> by <a href="https://videoplasty.com/">VideoPlasty</a>, licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.en">CC BY SA 4.0</a>, with modified dimensions.</div>
+</body>
+</html>

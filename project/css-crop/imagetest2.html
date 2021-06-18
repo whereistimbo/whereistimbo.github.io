@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<script>
+const svg_old = `<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+
+  <foreignObject x="20" y="20" width="160" height="160">
+    <div xmlns="http://www.w3.org/1999/xhtml">
+      <style>
+  </style>
+  <div>
+     Just testing
+      </div>
+    </div>
+  </foreignObject>
+</svg>`;
+const svg = `<svg fill="none" viewBox="0 0 500 400" width="500"  xmlns="http://www.w3.org/2000/svg">
+	<foreignObject width="100%" height="100%">
+		<div xmlns="http://www.w3.org/1999/xhtml">
+			<style>
+			</style>
+			<div class="container">
+				<img src="https://upload.wikimedia.org/wikipedia/commons/e/ee/UK_Black_Tech_stock_photos_12.jpg" width="500" />
+			</div>
+		</div>
+	</foreignObject>
+</svg>`;
+const svgimage = document.createElement('svg');
+const svgsrc = `
+<svg
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   width="200"
+   height="300"
+   viewBox="0 0 200 300">
+    <image
+       width="2560"
+       height="1707"
+       preserveAspectRatio="none"
+       xlink:href="https://upload.wikimedia.org/wikipedia/commons/e/ee/UK_Black_Tech_stock_photos_12.jpg"
+       id="image20"
+       x="-1120.546"
+       y="-925.06134" />
+</svg>
+`;
+const svgsrc2 = `
+<svg
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   width="66%"
+   height="100%"
+   viewBox="0 0 66 100">
+    <image
+       width="100%"
+       height="100%"
+       preserveAspectRatio="none"
+       xlink:href="https://upload.wikimedia.org/wikipedia/commons/e/ee/UK_Black_Tech_stock_photos_12.jpg"
+       id="image20"
+       x="-28%"
+       y="-10%" />
+</svg>
+`;
+svgimage.innerHTML = svgsrc2;
+const svguri = "data:image/svg+xml;utf8," + svgsrc;
+/*const blob = new Blob([svg], {type: 'image/svg+xml'});
+const url = URL.createObjectURL(blob);
+const image = document.createElement('img');
+image.addEventListener('load', () => URL.revokeObjectURL(url), {once: true});
+image.src = url;
+document.body.appendChild(image);*/
+const img = document.createElement("img");
+img.setAttribute("src", "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='200' height='300' viewBox='0 0 200 300'> <image width='2560' height='1707' preserveAspectRatio='none' xlink:href='https://upload.wikimedia.org/wikipedia/commons/e/ee/UK_Black_Tech_stock_photos_12.jpg' id='image20' x='-1120.546' y='-925.0613' /></svg>");
+img.setAttribute("style", "object-fit: contain; width: 100%; height: 100%;");
+const divBI = document.createElement("div");
+divBI.style.background = "url(https://upload.wikimedia.org/wikipedia/commons/e/ee/UK_Black_Tech_stock_photos_12.jpg) no-repeat";
+divBI.style.backgroundSize = "200% 200%";
+divBI.style.backgroundPosition = "top 50% left 50%";
+divBI.style.width = "100%";
+divBI.style.height = "100%";
+const div = document.createElement("div");
+div.setAttribute("class", "hello");
+div.style.position = "absolute";
+div.style.width = "500px";
+div.style.left = "0px";
+div.style.top = "0px";
+div.style.borderTop = "20px solid";
+div.style.borderBottom = "20px solid";
+div.style.resize = "both";
+div.style.overflow = "hidden";
+div.appendChild(img);
+document.body.appendChild(div);
+</script>
+
+</body>
+</html>

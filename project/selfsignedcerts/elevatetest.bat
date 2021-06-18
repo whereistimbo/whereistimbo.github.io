@@ -1,0 +1,3 @@
+::https://ss64.com/ps/syntax-elevate.html
+::https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/start-process?view=powershell-7.1
+PowerShell -Command "If (-NOT ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) { Start-Process -FilePath \"powershell.exe\" -ArgumentList \"Add-Type -AssemblyName PresentationFramework; [System.Windows.MessageBox]::Show('Hello')\" -Verb RunAs; exit}"

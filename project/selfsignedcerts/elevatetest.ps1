@@ -1,0 +1,1 @@
+If (-NOT ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) { Start-Process -FilePath "powershell.exe" -ArgumentList "Add-Type -AssemblyName PresentationFramework; [System.Windows.MessageBox]::Show('Hello')" -Verb RunAs; exit}

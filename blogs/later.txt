@@ -1,0 +1,344 @@
+<h2 class="date">2021-03-21</h2>
+<p class="day">Hari Ke-117</p>
+<p class="hour">08:40</p>
+[https://asokan.org/operation-elop/Operation-Elop.pdf]
+
+<h2 class="date">2020-12-31</h2>
+<p class="day">Hari Ke-36</p>
+<p class="hour">16:00</p>
+<p class="rev"></p>
+<blockquote>
+<p>tadi: nih kodingan2:</p>
+<p>youtube a-b repeat:</p>
+<pre>
+<code>
+(()=>{const video = document.querySelector('video');
+video.addEventListener('timeupdate', (event) => {
+if ((video.currentTime > 203) && (video.currentTime < 204)) {video.currentTime = 4;}});})()
+	
+(()=>{const video = document.querySelector('video');
+video.addEventListener('timeupdate', (event) => {
+if ((video.currentTime > 181) && (video.currentTime < 182)) {video.currentTime = 4;}});})();
+	
+(()=>{const video = document.querySelector('video');
+video.addEventListener('timeupdate', (event) => {
+if ((video.currentTime > 196) && (video.currentTime < 197)) {video.currentTime = 4;}});})();
+
+
+(()=>{const video = document.querySelector('video');
+video.addEventListener('timeupdate', (event) => {
+if (video.currentTime > 208) {video.currentTime = 2;}});})();
+</code>
+</pre>
+<p>iframe buat olahraga</p>
+<pre><code>
+(() => {
+const iframe = document.createElement("iframe");
+iframe.setAttribute("allowfullscreen", "");
+iframe.setAttribute("allow", "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture");
+iframe.setAttribute("frameborder", "0");
+iframe.setAttribute("src", "https://www.youtube.com/embed/videoseries?list=PLIc1-wxSJgpPL3vusgP2D64sIw6P8F4gk");
+iframe.style.width = "100%";
+iframe.style.height = "100%";
+
+const div = document.createElement("div");
+div.style.userSelect = "none";
+div.style.position = "absolute";
+div.style.left = "0px";
+div.style.top = "0px";
+div.style.opacity = "0.5";
+//div.style.padding = "20px 0 20px 0";
+div.style.borderTop = "20px solid";
+div.style.borderBottom = "20px solid";
+//div.style.width = "100px";
+//div.style.height = "100px";
+//div.style.background = "red";
+div.style.resize = "both";
+div.style.overflow = "hidden";
+div.style.userSelect = "none";
+div.appendChild(iframe);
+document.body.appendChild(div);
+div.onmousedown = (eDown) => {
+    var divX = parseFloat(div.style.left);
+	var divY = parseFloat(div.style.top);
+	var initialPointerX = eDown.clientX;
+	var initialPointerY = eDown.clientY;
+    //console.log("mouse down", divX, divY, initialPointerX, initialPointerY);
+    div.onmousemove = (eMove) => {
+	    let movedPointerX = eMove.clientX - initialPointerX;
+        let movedPointerY = eMove.clientY - initialPointerY;
+		let movedDivX = divX+movedPointerX;
+		let movedDivY = divY+movedPointerY;
+		//const f = "translate(" + movedPointerX + "px, " + movedPointerY + "px)";
+		div.style.transform = "translate(" + movedPointerX + "px, " + movedPointerY + "px)";
+        //console.log("mouse move", movedPointerX, movedPointerY, movedDivX, movedDivY, f);
+		div.onmouseleave = () => {
+		    div.style.transform = "";
+            div.style.left = movedDivX + "px";
+	        div.style.top = movedDivY + "px";
+		    div.onmousemove = null;
+			div.onmouseup = null;
+			div.onmouseleave = null;
+			//console.log("mouse leave");
+		}
+	    div.onmouseup = () => {
+		    div.style.transform = "";
+            div.style.left = movedDivX + "px";
+	        div.style.top = movedDivY + "px";
+		    div.onmousemove = null;
+			div.onmouseup = null;
+			div.onmouseleave = null;
+		    //console.log("mouse up");
+		};
+    };
+};
+})();
+</code></pre>
+<p>contoh gambar yg udah ke-crop dan bisa di-resized</p>
+<pre><code>
+(()=>{const img = document.createElement("img");
+img.setAttribute("src", "https://4.bp.blogspot.com/-HsasC7CdEhc/UEYvop32vOI/AAAAAAAAAN4/x3vLJdEw3dY/s1600/Niranjanananda+5.jpg");
+img.setAttribute("style", "object-fit: cover; object-position: 0 100%; width: 100%; height: 100%;");
+img.setAttribute("draggable", false);
+
+const div = document.createElement("div");
+div.style.position = "absolute";
+div.style.width = "500px";
+div.style.left = "0px";
+div.style.top = "0px";
+div.style.opacity = "0.5";
+div.style.borderTop = "20px solid";
+div.style.borderBottom = "20px solid";
+div.style.resize = "both";
+div.style.overflow = "hidden";
+div.appendChild(img);
+document.body.appendChild(div);
+div.onmousedown = (eDown) => {
+    var divX = parseFloat(div.style.left);
+	var divY = parseFloat(div.style.top);
+	var initialPointerX = eDown.clientX;
+	var initialPointerY = eDown.clientY;
+    div.onmousemove = (eMove) => {
+	    let movedPointerX = eMove.clientX - initialPointerX;
+        let movedPointerY = eMove.clientY - initialPointerY;
+		let movedDivX = divX+movedPointerX;
+		let movedDivY = divY+movedPointerY;
+		div.style.transform = "translate(" + movedPointerX + "px, " + movedPointerY + "px)";
+		div.onmouseleave = () => {
+		    div.style.transform = "";
+            div.style.left = movedDivX + "px";
+	        div.style.top = movedDivY + "px";
+		    div.onmousemove = null;
+			div.onmouseup = null;
+			div.onmouseleave = null;
+		}
+	    div.onmouseup = () => {
+		    div.style.transform = "";
+            div.style.left = movedDivX + "px";
+	        div.style.top = movedDivY + "px";
+		    div.onmousemove = null;
+			div.onmouseup = null;
+			div.onmouseleave = null;
+		};
+    };
+};})();
+
+(()=>{const img = document.createElement("img");
+img.setAttribute("src", "https://www.ynet.co.il/PicServer5/2019/08/06/9407186/94071680100590640360no.jpg");
+img.setAttribute("style", "object-fit: cover; object-position: 70% 100%; width: 170%; height: 160%;");
+img.setAttribute("draggable", false);
+
+const div = document.createElement("div");
+div.style.position = "absolute";
+div.style.width = "500px";
+div.style.left = "0px";
+div.style.top = "0px";
+div.style.opacity = "0.4";
+div.style.borderTop = "20px solid";
+div.style.borderBottom = "20px solid";
+div.style.resize = "both";
+div.style.overflow = "hidden";
+div.appendChild(img);
+document.body.appendChild(div);
+div.onmousedown = (eDown) => {
+    var divX = parseFloat(div.style.left);
+	var divY = parseFloat(div.style.top);
+	var initialPointerX = eDown.clientX;
+	var initialPointerY = eDown.clientY;
+    div.onmousemove = (eMove) => {
+	    let movedPointerX = eMove.clientX - initialPointerX;
+        let movedPointerY = eMove.clientY - initialPointerY;
+		let movedDivX = divX+movedPointerX;
+		let movedDivY = divY+movedPointerY;
+		div.style.transform = "translate(" + movedPointerX + "px, " + movedPointerY + "px)";
+		div.onmouseleave = () => {
+		    div.style.transform = "";
+            div.style.left = movedDivX + "px";
+	        div.style.top = movedDivY + "px";
+		    div.onmousemove = null;
+			div.onmouseup = null;
+			div.onmouseleave = null;
+		}
+	    div.onmouseup = () => {
+		    div.style.transform = "";
+            div.style.left = movedDivX + "px";
+	        div.style.top = movedDivY + "px";
+		    div.onmousemove = null;
+			div.onmouseup = null;
+			div.onmouseleave = null;
+		};
+    };
+};})();
+
+(()=>{const img = document.createElement("img");
+img.setAttribute("src", "https://gossip.dekhnews.com/wp-content/uploads/2020/02/lex-fridman.jpg");
+img.setAttribute("style", "object-fit: cover; object-position: 0 100%; width: 100%; height: 100%;");
+img.setAttribute("draggable", false);
+
+const div = document.createElement("div");
+div.style.position = "absolute";
+div.style.width = "500px";
+div.style.left = "0px";
+div.style.top = "0px";
+div.style.opacity = "0.5";
+div.style.borderTop = "20px solid";
+div.style.borderBottom = "20px solid";
+div.style.resize = "both";
+div.style.overflow = "hidden";
+div.appendChild(img);
+document.body.appendChild(div);
+div.onmousedown = (eDown) => {
+    var divX = parseFloat(div.style.left);
+	var divY = parseFloat(div.style.top);
+	var initialPointerX = eDown.clientX;
+	var initialPointerY = eDown.clientY;
+    div.onmousemove = (eMove) => {
+	    let movedPointerX = eMove.clientX - initialPointerX;
+        let movedPointerY = eMove.clientY - initialPointerY;
+		let movedDivX = divX+movedPointerX;
+		let movedDivY = divY+movedPointerY;
+		div.style.transform = "translate(" + movedPointerX + "px, " + movedPointerY + "px)";
+		div.onmouseleave = () => {
+		    div.style.transform = "";
+            div.style.left = movedDivX + "px";
+	        div.style.top = movedDivY + "px";
+		    div.onmousemove = null;
+			div.onmouseup = null;
+			div.onmouseleave = null;
+		}
+	    div.onmouseup = () => {
+		    div.style.transform = "";
+            div.style.left = movedDivX + "px";
+	        div.style.top = movedDivY + "px";
+		    div.onmousemove = null;
+			div.onmouseup = null;
+			div.onmouseleave = null;
+		};
+    };
+};})();
+
+(()=>{const img = document.createElement("img");
+img.setAttribute("src", "https://instagram.fcgk18-1.fna.fbcdn.net/v/t51.2885-15/e35/s1080x1080/84714427_3561626410575771_1501741245864670756_n.jpg?_nc_ht=instagram.fcgk18-1.fna.fbcdn.net&_nc_cat=103&_nc_ohc=aSdL8eHub7kAX8liNhL&tp=1&oh=c7b0d51bb8d7a56b5c92e89111b0ebb2&oe=60177C03");
+img.setAttribute("style", "object-fit: cover; object-position: 90% 100%; width: 170%; height: 160%;");
+img.setAttribute("draggable", false);
+
+const div = document.createElement("div");
+div.style.position = "absolute";
+div.style.width = "500px";
+div.style.left = "0px";
+div.style.top = "0px";
+div.style.opacity = "0.4";
+div.style.borderTop = "20px solid";
+div.style.borderBottom = "20px solid";
+div.style.resize = "both";
+div.style.overflow = "hidden";
+div.appendChild(img);
+document.body.appendChild(div);
+div.onmousedown = (eDown) => {
+    var divX = parseFloat(div.style.left);
+	var divY = parseFloat(div.style.top);
+	var initialPointerX = eDown.clientX;
+	var initialPointerY = eDown.clientY;
+    div.onmousemove = (eMove) => {
+	    let movedPointerX = eMove.clientX - initialPointerX;
+        let movedPointerY = eMove.clientY - initialPointerY;
+		let movedDivX = divX+movedPointerX;
+		let movedDivY = divY+movedPointerY;
+		div.style.transform = "translate(" + movedPointerX + "px, " + movedPointerY + "px)";
+		div.onmouseleave = () => {
+		    div.style.transform = "";
+            div.style.left = movedDivX + "px";
+	        div.style.top = movedDivY + "px";
+		    div.onmousemove = null;
+			div.onmouseup = null;
+			div.onmouseleave = null;
+		}
+	    div.onmouseup = () => {
+		    div.style.transform = "";
+            div.style.left = movedDivX + "px";
+	        div.style.top = movedDivY + "px";
+		    div.onmousemove = null;
+			div.onmouseup = null;
+			div.onmouseleave = null;
+		};
+    };
+};})();
+</code></pre>
+</blockquote>
+
+
+<h2>2020-12-07</h2>
+<p>Hari Ke-12</p>
+<p>11:42</p>
+<blockquote>
+<p>tadi: google colab bisa jalanin webserver [https://stackoverflow.com/questions/59741453/is-there-a-general-way-to-run-web-applications-on-google-colab]
+
+
+<h2>2020-12-01</h2>
+<p>Hari Keenam</p>
+<p>04:47</p>
+<blockquote>
+<p>tadi: cara install microsoft loopback adapter:<br>
+1. go to device manager<br>
+2. on menu 'Action', select 'Add legacy hardware'<br>
+3. select 'Install the hardware I manually select' and click next<br>
+4. Select Network adapters<br>
+5. Select Microsoft<br>
+6. Select Microsoft KM-TEST Loopback adapter<br>
+you can add it multiple times even. sekarang gimana caranya biar web server bisa jalan di loopback adapter.</p>
+</blockquote>
+
+<div id="?+10">   
+<h2>2021-04-05</h2>
+<p>13:55</p>
+<p>v2 19:40</p>
+<blockquote>
+<p>tadi: note: bcdedit /set hypervisorlaunchtype off atau bcdedit /set hypervisorlaunchtype auto</p>
+</blockquote>
+<p>19:41</p>
+<blockquote>
+<p>tadi: kesalahan dalam meng-install ubuntu/linux distro lainnya dalam Hyper-V<br>
+1. Secure Boot aktif, dan template-nya Microsoft Windows<br>
+2. Tidak sabaran, kalau yg ubuntu emang nunggunya lama banget</p>
+</blockquote>
+
+<p>Hari ke-?+13</p>
+<p>12:41</p>
+<p>v2 12:47</p>
+<blockquote>
+<p>tadi: command Hyper-V: Set-VM 'namanya' -EnhancedSessionTransportType HVSocket<br>
+kalau blm bisa, revert to VMBus</p>
+</blockquote>
+
+<h2>2021-04-07</h2>
+<p>Hari ke-?+13</p>
+<p>12:41</p>
+<p>v2 12:47</p>
+<blockquote>
+<p>tadi: command Hyper-V: Set-VM 'namanya' -EnhancedSessionTransportType HVSocket<br>
+kalau blm bisa, revert to VMBus</p>
+</blockquote>
+<p>15:29</p>
+<blockquote>
+<p>tadi: payah, sia-sia, benar-benar membuang waktu, tadinya kupikir Hyper-V enhanced session itu bisa buat USB passthrough, tahunya malahan payah enhanced session-nya, intinya gara2 ekspetasi berlebihan lah, tahunya malah lebih jelek dari virtualbox, karena virtualbox itu setidaknya ADA, ini Hyper-V Enhanced Session malah GA ADA.</p>
+</blockquote>

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Helper Tool for CSS Code</title>
+<link rel="stylesheet" href="https://unpkg.com/jcrop/dist/jcrop.css">
+<script src="https://unpkg.com/jcrop"></script>
+</head>
+<body>
+<form action="" id="imageURL" onsubmit="event.preventDefault();"><input type="textbox" name="url"><button type="submit">Show Image</button></form>
+<button id="reset">Reset</button>
+<!--<div>
+<form><p>set to 100% by</p><label>
+<input type="radio" name="enlarge" value="width">Width</label>
+<label><input type="radio" name="enlarge" value="height">Height</label></form>
+<form><p>scale by</p><label>
+<input type="radio" name="scale" value="x">x</label>
+<label><input type="radio" name="scale" value="y">y</label></form>
+</div>-->
+<br>
+<div id="cropper">
+<img src="https://upload.wikimedia.org/wikipedia/commons/e/ee/UK_Black_Tech_stock_photos_12.jpg" id="target"/>
+</div>
+<button id="reset">Reset</button>
+<button id="test">Test</button>
+<script>
+  var stage = Jcrop.attach('target');
+  const resetFn = () => {stage.destroy();stage = Jcrop.attach('target');};
+  document.getElementById('reset').onclick = resetFn;
+  const tg = document.getElementById('target');
+  const iUForm = document.forms.imageURL;
+  iUForm.onsubmit = (e) => {
+    e.preventDefault();
+	const iUFD = new FormData(iUForm);
+	tg.src = iUFD.get("url");
+  };
+</script>
+<br>
+<script>
+const retN = () => {
+    const pos = stage.active.pos;
+	const e = new Object();
+	e.x = pos.x;
+	e.y = pos.y;
+	e.w = pos.w;
+	e.h = pos.h;
+	return e;
+};
+async function testDiv(){
+const valN = retN();
+const urlfetch = tg.src;
+const fetchPromise = fetch(tg.src).catch(()=>{console.log("Using proxy to workaround cors"); return fetch("https://cors-anywhere.herokuapp.com/"+tg.src)});
+const ou = await fetchPromise
+  .then(function(response) {return response.blob()})
+  .then(function(myBlob) {
+	return new Promise((resolve,reject) => {
+	  var fr = new FileReader();
+	  fr.onload = () => resolve(fr.result);
+	  fr.readAsDataURL(myBlob);
+  });});
+//console.log(ou);
+var a = `<svg
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   width="${valN.w}"
+   height="${valN.h}"
+   viewBox="0 0 ${valN.w} ${valN.h}">
+    <image
+       width="${tg.naturalWidth}"
+       height="${tg.naturalHeight}"
+       preserveAspectRatio="none"
+       xlink:href="${ou}"
+       id="image20"
+       x="-${valN.x}"
+       y="-${valN.y}" /></svg>`;
+
+const blob = new Blob([a], {type: 'image/svg+xml'});
+const urlsvg = URL.createObjectURL(blob);
+const img = document.createElement("img");
+img.setAttribute("src", urlsvg);
+img.setAttribute("draggable", false);
+img.setAttribute("style", "user-select: none;");
+img.style.width = "100%";
+img.style.height = "100%";
+const div = document.createElement("div");
+div.appendChild(img);
+div.style.position = "absolute";
+div.style.width = valN.w;
+div.style.height = valN.h;
+div.style.left = "0px";
+div.style.top = "0px";
+//div.style.opacity = "0.5";
+div.style.borderTop = "20px solid";
+div.style.borderBottom = "20px solid";
+div.style.resize = "both";
+div.style.overflow = "hidden";
+document.body.appendChild(div);
+div.onmousedown = (eDown) => {
+    var divX = parseFloat(div.style.left);
+	var divY = parseFloat(div.style.top);
+	var initialPointerX = eDown.clientX;
+	var initialPointerY = eDown.clientY;
+    div.onmousemove = (eMove) => {
+	    let movedPointerX = eMove.clientX - initialPointerX;
+        let movedPointerY = eMove.clientY - initialPointerY;
+		let movedDivX = divX+movedPointerX;
+		let movedDivY = divY+movedPointerY;
+		div.style.transform = "translate(" + movedPointerX + "px, " + movedPointerY + "px)";
+		div.onmouseleave = () => {
+		    div.style.transform = "";
+            div.style.left = movedDivX + "px";
+	        div.style.top = movedDivY + "px";
+		    div.onmousemove = null;
+			div.onmouseup = null;
+			div.onmouseleave = null;
+		}
+	    div.onmouseup = () => {
+		    div.style.transform = "";
+            div.style.left = movedDivX + "px";
+	        div.style.top = movedDivY + "px";
+		    div.onmousemove = null;
+			div.onmouseup = null;
+			div.onmouseleave = null;
+		};
+    };
+};
+}
+document.getElementById("test").onclick = async function() {await testDiv();};
+/*
+const img = document.createElement("img");
+img.setAttribute("src", "https://upload.wikimedia.org/wikipedia/commons/e/ee/UK_Black_Tech_stock_photos_12.jpg");
+img.setAttribute("style", "object-fit: cover; object-position: 0 100%; width: 100%; height: 100%; overflow: hidden; display: block;");
+const div = document.createElement("div");
+div.appendChild(img);
+div.style.position = "absolute";
+//div.style.backgroundImage = "url(https://upload.wikimedia.org/wikipedia/commons/e/ee/UK_Black_Tech_stock_photos_12.jpg)";
+//div.style.backgroundSize = "cover";
+//div.style.backgroundRepeat = "no-repeat";
+div.style.width = "200px";
+div.style.height = "300px";
+div.style.left = "0px";
+div.style.top = "0px";
+div.style.opacity = "0.5";
+div.style.borderTop = "20px solid";
+div.style.borderBottom = "20px solid";
+div.style.resize = "both";
+div.style.overflow = "auto";
+document.body.appendChild(div);
+div.onmousedown = (eDown) => {
+    var divX = parseFloat(div.style.left);
+	var divY = parseFloat(div.style.top);
+	var initialPointerX = eDown.clientX;
+	var initialPointerY = eDown.clientY;
+    div.onmousemove = (eMove) => {
+	    let movedPointerX = eMove.clientX - initialPointerX;
+        let movedPointerY = eMove.clientY - initialPointerY;
+		let movedDivX = divX+movedPointerX;
+		let movedDivY = divY+movedPointerY;
+		div.style.transform = "translate(" + movedPointerX + "px, " + movedPointerY + "px)";
+		div.onmouseleave = () => {
+		    div.style.transform = "";
+            div.style.left = movedDivX + "px";
+	        div.style.top = movedDivY + "px";
+		    div.onmousemove = null;
+			div.onmouseup = null;
+			div.onmouseleave = null;
+		}
+	    div.onmouseup = () => {
+		    div.style.transform = "";
+            div.style.left = movedDivX + "px";
+	        div.style.top = movedDivY + "px";
+		    div.onmousemove = null;
+			div.onmouseup = null;
+			div.onmouseleave = null;
+		};
+    };
+};*/
+</script>
+</body>
+</html>

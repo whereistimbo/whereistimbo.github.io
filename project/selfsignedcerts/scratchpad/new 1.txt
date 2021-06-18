@@ -1,0 +1,47 @@
+/*
+The MIT License (MIT)
+Copyright (c) Microsoft Corporation
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and 
+associated documentation files (the "Software"), to deal in the Software without restriction, 
+including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, 
+and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, 
+subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial 
+portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT 
+NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. 
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, 
+WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE 
+SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+*/
+powershell -command "Start-Process -FilePath 'powershell' -ArgumentList '' -Verb RunAs"
+
+
+
+
+If (-NOT ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) { Start-Process -FilePath "powershell.exe" -ArgumentList "Add-Type -AssemblyName PresentationFramework; [System.Windows.MessageBox]::Show('Hello')" -Verb RunAs; exit}
+
+
+#https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/get-filehash?view=powershell-7.1
+::https://ss64.com/ps/syntax-elevate.html
+$stringAsStream = [System.IO.MemoryStream]::new()
+$writer = [System.IO.StreamWriter]::new($stringAsStream)
+$writer.write($d.getPublicKey())
+$writer.Flush()
+$stringAsStream.Position = 0
+Get-FileHash -InputStream $stringAsStream | Select-Object Hash
+[System.Security.Cryptography.X509Certificates.X509Store]::new("My","CurrentUser")
+//https://docs.microsoft.com/en-us/dotnet/api/system.security.cryptography.x509certificates.x509certificate?view=net-5.0
+//https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/new-object?view=powershell-7.1
+$tes3 = [System.Security.Cryptography.X509Certificates]::new($tes1)
+
+[System.Security.Cryptography.X509Certificates.X509Certificate2]::new()
+
+
+$rootca = [System.Security.Cryptography.X509Certificates.X509Certificate2]::new([System.Convert]::FromBase64String($base64)); $store = [System.Security.Cryptography.X509Certificates.X509Store]::new("Root","CurrentUser"); $store.Open([System.Security.Cryptography.X509Certificates.OpenFlags]::ReadWrite); $store.Add($rootca)
+
+
+Get-ChildItem -Path Cert:\CurrentUser\Root | Where-Object {$_.SubjectName.Name.StartsWith("CN=whereistimbo's Self Signed Root CA")} | Remove-Item
